@@ -1,0 +1,26 @@
+{
+    "headline": {
+        "id": "1",
+        "name": "Headline",
+        "icon": "./assets/icons/headline-icon.svg",
+        "data": "A legendary cap set that feels like new"
+    },
+    "paragraph": {
+        "id": "2",
+        "name": "Paragraph",
+        "icon": "./assets/icons/paragraph-icon.svg",
+        "data": "Prompt your customer to revisit your store by showing them the products they left behind. Consider offering them a coupon code to close the deal. Using the \"Insert\" panel on the right, drag and drop the Abandoned Cart element onto the page below."
+    },
+    "button": {
+        "id": "3",
+        "name": "button",
+        "icon": "./assets/icons/button-icon.svg",
+        "data": "Register now"
+    },
+    "image": {
+        "id": "4",
+        "name": "image",
+        "icon": "./assets/icons/image-icon.svg",
+        "data": "./assets/example.jpg"
+    }
+}
