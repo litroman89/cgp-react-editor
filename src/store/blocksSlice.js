@@ -15,22 +15,56 @@ export const blocksSlice = createSlice({
       // immutable state based off those changes
       state.blocks = [...state.blocks, action.payload];
     },
-    moveBlock: (state, action) => {
-      const { fromIndex, toIndex } = action.payload;
-      const blocks = [...state.blocks];
-      const [movedBlock] = blocks.splice(fromIndex, 1);
-      blocks.splice(toIndex, 0, movedBlock);
-      return {
-        blocks,
-      };
+    changeData: (state, action) => {
+      const { id, updatedData } = action.payload;
+      state.blocks.find((block) => block.id === id).data = updatedData;
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    moveBlockUp: (state, action) => {
+      const { id } = action.payload;
+      const blocks = [...state.blocks];
+      const index = blocks.findIndex((block) => block.id === id);
+      if (index > 0) {
+        const [movedBlock] = blocks.splice(index, 1);
+        blocks.splice(index - 1, 0, movedBlock);
+        state.blocks = blocks;
+      }
+    },
+    moveBlockDown: (state, action) => {
+      const { id } = action.payload;
+      const blocks = [...state.blocks];
+      const index = blocks.findIndex((block) => block.id === id);
+      if (index >= 0) {
+        const [movedBlock] = blocks.splice(index, 1);
+        blocks.splice(index + 1, 0, movedBlock);
+        state.blocks = blocks;
+      }
+    },
+    copyBlock: (state, action) => {
+      const { id } = action.payload;
+      const index = state.blocks.findIndex((block) => block.id === id);
+
+      //create new id for copied block
+      const newId = crypto.randomUUID();
+      state.blocks.splice(index + 1, 0, {
+        ...state.blocks.find((block) => block.id === id),
+        id: newId,
+      });
+    },
+    deleteBlock: (state, action) => {
+      const { id } = action.payload;
+      state.blocks = state.blocks.filter((block) => block.id !== id);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addBlock, decrement, incrementByAmount } = blocksSlice.actions;
+export const {
+  addBlock,
+  changeData,
+  moveBlockUp,
+  moveBlockDown,
+  copyBlock,
+  deleteBlock,
+} = blocksSlice.actions;
 
 export default blocksSlice.reducer;
